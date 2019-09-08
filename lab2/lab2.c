@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,22 +18,52 @@ void *threadFunc() {
   fprintf(stdout, "\n");
 }
 
+void printCreateThreadError() {
+  if (errno == EAGAIN) {
+    fprintf(stderr, "Insufficient resources to create another thread");
+  }
+  if (errno == EAGAIN) {
+    fprintf(stderr,
+            "A system-imposed limit on the number of threads was encountered");
+  }
+  if (errno == EINVAL) {
+    fprintf(stderr, "Invalid settings in attr");
+  }
+  if (errno == EPERM) {
+    fprintf(stderr, "No permission to set the scheduling policy and parameters "
+                    "specified in attr");
+  }
+}
+
+void printJoinThreadError() {
+  if (errno == EDEADLK) {
+    fprintf(stderr, "A deadlock was detected");
+  }
+  if (errno == EINVAL) {
+    fprintf(stderr, "thread is not a joinable thread");
+  }
+  if (errno == EINVAL) {
+    fprintf(stderr,
+            "Another thread is already waiting to join with this thread");
+  }
+  if (errno == ESRCH) {
+    fprintf(stderr, "No thread with the ID thread could be found");
+  }
+}
+
 int main(int argc, char *argv[]) {
   void *threadData = NULL;
   pthread_attr_t attr;
   pthread_t thread;
   pthread_attr_init(&attr);
-  int iter1 = pthread_create(&thread, &attr, threadFunc, threadData);
 
-  if (iter1) {
-    fprintf(stderr, "thread don't create\n");
+  if (pthread_create(&thread, &attr, threadFunc, threadData)) {
+    printCreateThreadError();
     exit(EXIT_FAILURE);
   }
 
-  int iter2 = pthread_join(thread, NULL);
-  if (iter2 != 0) {
-    fprintf(stderr, "thread error. Number of ERROR: ");
-    fprintf(stderr, "%d\n", iter2);
+  if (pthread_join(thread, NULL)) {
+    printJoinThreadError();
     exit(EXIT_FAILURE);
   }
 
