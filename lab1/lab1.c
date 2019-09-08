@@ -38,14 +38,12 @@ void printCreateThreadError() {
 int main(int argc, char *argv[]) {
   void *threadData = NULL;
   pthread_t thread;
-  pthread_attr_t attr;
-  pthread_attr_init(&attr);
 
   for (int i = 0; i < 10; ++i) {
     printf("hello world in main thread\n");
   }
 
-  if (pthread_create(&thread, &attr, threadFunc, threadData)) {
+  if (pthread_create(&thread, NULL, threadFunc, threadData)) {
     printCreateThreadError();
     exit(EXIT_FAILURE);
   }
