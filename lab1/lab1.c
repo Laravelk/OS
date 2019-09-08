@@ -14,7 +14,7 @@
 
 void *threadFunc(void *thread_data) {
   for (int i = 0; i < 10; ++i) {
-    printf("hello world in thread\n");
+    fprintf(stderr, "hello world in thread\n");
   }
 }
 
