@@ -20,9 +20,6 @@ void *threadFunc(void *thread_data) {
 
 void printCreateThreadError() {
   if (errno == EAGAIN) {
-    fprintf(stderr, "Insufficient resources to create another thread");
-  }
-  if (errno == EAGAIN) {
     fprintf(stderr,
             "A system-imposed limit on the number of threads was encountered");
   }

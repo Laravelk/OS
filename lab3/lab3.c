@@ -5,6 +5,7 @@
 
 void *printFunction(void *threadData) {
   fprintf(stderr, "%s\n", (char *)threadData);
+  thread_exit(NULL);
 }
 
 void printCreateThreadError() {
@@ -22,6 +23,7 @@ void printCreateThreadError() {
     fprintf(stderr, "No permission to set the scheduling policy and parameters "
                     "specified in attr");
   }
+  thread_exit(NULL);
 }
 
 void printJoinThreadError() {
@@ -69,6 +71,7 @@ int main(int argc, char *argv[]) {
     }
   }
 
+  pthread_attr_destroy(&attr);
+
   free(message);
-  return 0;
 }

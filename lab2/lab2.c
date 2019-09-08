@@ -16,6 +16,7 @@ void *threadFunc() {
     fprintf(stdout, "Hello world in thread\n");
   }
   fprintf(stdout, "\n");
+  thread_exit(NULL);
 }
 
 void printCreateThreadError() {
@@ -70,4 +71,6 @@ int main(int argc, char *argv[]) {
   for (int i = 0; i < 10; ++i) {
     fprintf(stdout, "Hello world in main thread\n");
   }
+
+  pthread_attr_destroy(&attr);
 }
