@@ -5,7 +5,6 @@
 
 void *printFunction(void *threadData) {
   fprintf(stderr, "%s\n", (char *)threadData);
-  thread_exit(NULL);
 }
 
 void printCreateThreadError() {
@@ -32,10 +31,6 @@ void printJoinThreadError() {
   }
   if (errno == EINVAL) {
     fprintf(stderr, "thread is not a joinable thread");
-  }
-  if (errno == EINVAL) {
-    fprintf(stderr,
-            "Another thread is already waiting to join with this thread");
   }
   if (errno == ESRCH) {
     fprintf(stderr, "No thread with the ID thread could be found");

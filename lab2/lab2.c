@@ -16,16 +16,11 @@ void *threadFunc() {
     fprintf(stdout, "Hello world in thread\n");
   }
   fprintf(stdout, "\n");
-  thread_exit(NULL);
 }
 
 void printCreateThreadError() {
   if (errno == EAGAIN) {
     fprintf(stderr, "Insufficient resources to create another thread");
-  }
-  if (errno == EAGAIN) {
-    fprintf(stderr,
-            "A system-imposed limit on the number of threads was encountered");
   }
   if (errno == EINVAL) {
     fprintf(stderr, "Invalid settings in attr");
@@ -54,11 +49,9 @@ void printJoinThreadError() {
 
 int main(int argc, char *argv[]) {
   void *threadData = NULL;
-  pthread_attr_t attr;
   pthread_t thread;
-  pthread_attr_init(&attr);
 
-  if (pthread_create(&thread, &attr, threadFunc, threadData)) {
+  if (pthread_create(&thread, NULL, threadFunc, threadData)) {
     printCreateThreadError();
     exit(EXIT_FAILURE);
   }
@@ -71,6 +64,4 @@ int main(int argc, char *argv[]) {
   for (int i = 0; i < 10; ++i) {
     fprintf(stdout, "Hello world in main thread\n");
   }
-
-  pthread_attr_destroy(&attr);
 }
