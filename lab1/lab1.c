@@ -10,6 +10,7 @@
 // http://rus-linux.net/MyLDP/algol/light-weight-processes-linux-threads.html
 // http://parallels.nsu.ru/WackoWiki/KursOperacionnyeSistemy/PraktikumPosixThreads/PthreadLectures/Intro2#h174-2
 // http://www.yolinux.com/TUTORIALS/LinuxTutorialPosixThreads.html
+// https://docs.oracle.com/cd/E26502_01/html/E35303/docinfo.html#scrolltoc
 
 void *threadFunc(void *thread_data) {
   for (int i = 0; i < 10; ++i) {
@@ -20,15 +21,16 @@ void *threadFunc(void *thread_data) {
 
 void printCreateThreadError() {
   if (errno == EAGAIN) {
-    fprintf(stderr,
-            "A system-imposed limit on the number of threads was encountered");
+    fprintf(
+        stderr,
+        "A system-imposed limit on the number of threads was encountered\n");
   }
   if (errno == EINVAL) {
-    fprintf(stderr, "Invalid settings in attr");
+    fprintf(stderr, "Invalid settings in attr\n");
   }
   if (errno == EPERM) {
     fprintf(stderr, "No permission to set the scheduling policy and parameters "
-                    "specified in attr");
+                    "specified in attr\n");
   }
 }
 
@@ -44,8 +46,6 @@ int main(int argc, char *argv[]) {
     printCreateThreadError();
     exit(EXIT_FAILURE);
   }
-
-  pthread_attr_destroy(&attr);
 
   pthread_exit(NULL);
 }

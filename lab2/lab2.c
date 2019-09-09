@@ -10,6 +10,7 @@
 // http://man7.org/linux/man-pages/man3/pthread_join.3.html
 // http://rus-linux.net/MyLDP/algol/light-weight-processes-linux-threads.html
 // http://parallels.nsu.ru/WackoWiki/KursOperacionnyeSistemy/PraktikumPosixThreads/PthreadLectures/Intro2#h174-2
+// https://docs.oracle.com/cd/E26502_01/html/E35303/docinfo.html#scrolltoc
 
 void *threadFunc() {
   for (int i = 0; i < 10; ++i) {
@@ -20,30 +21,30 @@ void *threadFunc() {
 
 void printCreateThreadError() {
   if (errno == EAGAIN) {
-    fprintf(stderr, "Insufficient resources to create another thread");
+    fprintf(stderr, "Insufficient resources to create another thread\n");
   }
   if (errno == EINVAL) {
-    fprintf(stderr, "Invalid settings in attr");
+    fprintf(stderr, "Invalid settings in attr\n");
   }
   if (errno == EPERM) {
     fprintf(stderr, "No permission to set the scheduling policy and parameters "
-                    "specified in attr");
+                    "specified in attr\n");
   }
 }
 
 void printJoinThreadError() {
   if (errno == EDEADLK) {
-    fprintf(stderr, "A deadlock was detected");
+    fprintf(stderr, "A deadlock was detected\n");
   }
   if (errno == EINVAL) {
-    fprintf(stderr, "thread is not a joinable thread");
+    fprintf(stderr, "thread is not a joinable thread\n");
   }
   if (errno == EINVAL) {
     fprintf(stderr,
-            "Another thread is already waiting to join with this thread");
+            "Another thread is already waiting to join with this thread\n");
   }
   if (errno == ESRCH) {
-    fprintf(stderr, "No thread with the ID thread could be found");
+    fprintf(stderr, "No thread with the ID thread could be found\n");
   }
 }
 
