@@ -4,9 +4,13 @@
 #include <stdlib.h>
 #include <unistd.h> // sleep for solaris
 
-// http://citforum.ru/programming/unix/threads_2/
-// http://parallels.nsu.ru/WackoWiki/KursOperacionnyeSistemy/PraktikumPosixThreads/PthreadLectures/CreateExit#h177-4
-// https://www.opennet.ru/man.shtml?topic=pthread_setcancelstate&category=3&russian=4
+/*
+http://citforum.ru/programming/unix/threads_2/
+http://parallels.nsu.ru/WackoWiki/KursOperacionnyeSistemy/PraktikumPosixThreads/PthreadLectures/CreateExit#h177-4
+https://www.opennet.ru/man.shtml?topic=pthread_setcancelstate&category=3&russian=4
+https://code.woboq.org/userspace/glibc/nptl/pthread_setcancelstate.c.html source
+http://man7.org/linux/man-pages/man3/pthread_cleanup_push.3.html source
+*/
 
 void printThreadEnd(void *arg) {
   free(arg);
